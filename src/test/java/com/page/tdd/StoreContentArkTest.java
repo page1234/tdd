@@ -1,5 +1,6 @@
 package com.page.tdd;
 
+import com.page.tdd.exception.InvalidQRCodeException;
 import com.page.tdd.exception.QRCodeHadUsedException;
 import com.page.tdd.exception.StoreBagFailException;
 import org.junit.jupiter.api.Test;
@@ -50,6 +51,16 @@ public class StoreContentArkTest {
 
         assertThatThrownBy(()->storeContentArk.pickUp(qrCode))
                 .isInstanceOf(QRCodeHadUsedException.class);
+    }
+
+    @Test
+    void should_pick_up_fail_when_pick_up_given_a_invalid_qrcode_and_a_store_content_ark() {
+        Bag bag = new Bag();
+        StoreContentArk storeContentArk = new StoreContentArk(10);
+        QRCode qrCode = new QRCode();
+
+        assertThatThrownBy(()->storeContentArk.pickUp(qrCode))
+                .isInstanceOf(InvalidQRCodeException.class);
     }
 
 }
