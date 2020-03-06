@@ -55,7 +55,6 @@ public class StoreContentArkTest {
 
     @Test
     void should_pick_up_fail_when_pick_up_given_a_invalid_qrcode_and_a_store_content_ark() {
-        Bag bag = new Bag();
         StoreContentArk storeContentArk = new StoreContentArk(10);
         QRCode qrCode = new QRCode();
 
