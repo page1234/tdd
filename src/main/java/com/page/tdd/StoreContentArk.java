@@ -1,5 +1,6 @@
 package com.page.tdd;
 
+import com.page.tdd.exception.InvalidQRCodeException;
 import com.page.tdd.exception.QRCodeHadUsedException;
 import com.page.tdd.exception.StoreBagFailException;
 
@@ -35,6 +36,10 @@ public class StoreContentArk {
     }
 
     public Bag pickUp(QRCode qrCode) {
+        if (!qrCodes.contains(qrCode) && !arks.containsKey(qrCode)) {
+            throw new InvalidQRCodeException();
+        }
+
         if (isQRCodeUsed(qrCode)) {
             throw new QRCodeHadUsedException();
         }
