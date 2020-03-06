@@ -5,6 +5,6 @@ public class StoreContentArk {
     }
 
     public QRCode store(Bag bag) {
-        return null;
+        return new QRCode();
     }
 }
