@@ -28,4 +28,16 @@ public class StoreContentArkTest {
                 .isNotEqualTo(StoreBagFailException.class);
 
     }
+
+    @Test
+    void should_got_bag_when_pick_up_given_a_qrcode_and_a_store_content_ark() {
+        Bag bag = new Bag();
+        StoreContentArk storeContentArk = new StoreContentArk(10);
+        QRCode qrCode = storeContentArk.store(bag);
+
+        Bag actualBag = storeContentArk.pickUp(qrCode);
+
+        then(actualBag).isEqualTo(bag);
+    }
+
 }

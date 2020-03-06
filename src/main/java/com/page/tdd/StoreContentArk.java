@@ -21,4 +21,8 @@ public class StoreContentArk {
 
         return new QRCode();
     }
+
+    public Bag pickUp(QRCode qrCode) {
+        return null;
+    }
 }
