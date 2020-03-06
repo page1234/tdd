@@ -36,6 +36,12 @@ public class StoreContentArk {
     }
 
     public Bag pickUp(QRCode qrCode) {
+        verifyQRCode(qrCode);
+
+        return arks.remove(qrCode);
+    }
+
+    private void verifyQRCode(QRCode qrCode) {
         if (isInvalidQRCode(qrCode)) {
             throw new InvalidQRCodeException();
         }
@@ -43,8 +49,6 @@ public class StoreContentArk {
         if (isQRCodeUsed(qrCode)) {
             throw new QRCodeHadUsedException();
         }
-
-        return arks.remove(qrCode);
     }
 
     private boolean isInvalidQRCode(QRCode qrCode) {
