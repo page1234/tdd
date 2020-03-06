@@ -35,10 +35,14 @@ public class StoreContentArk {
     }
 
     public Bag pickUp(QRCode qrCode) {
-        if (qrCodes.contains(qrCode) && !arks.containsKey(qrCode)) {
+        if (isQRCodeUsed(qrCode)) {
             throw new QRCodeHadUsedException();
         }
 
         return arks.remove(qrCode);
+    }
+
+    private boolean isQRCodeUsed(QRCode qrCode) {
+        return qrCodes.contains(qrCode) && !arks.containsKey(qrCode);
     }
 }
