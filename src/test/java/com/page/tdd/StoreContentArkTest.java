@@ -1,7 +1,9 @@
 package com.page.tdd;
 
+import com.page.tdd.exception.StoreBagFailException;
 import org.junit.jupiter.api.Test;
 
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.assertj.core.api.BDDAssertions.then;
 
 public class StoreContentArkTest {
@@ -14,5 +16,16 @@ public class StoreContentArkTest {
         QRCode qrCode = storeContentArk.store(bag);
 
         then(qrCode).isNotNull();
+    }
+
+    @Test
+    void should_store_fail_when_store_bag_given_a_bag_and_a_full_store_content_ark() {
+        StoreContentArk storeContentArk = new StoreContentArk(1);
+        storeContentArk.store(new Bag());
+        Bag bag = new Bag();
+
+        assertThatThrownBy(() -> storeContentArk.store(bag))
+                .isNotEqualTo(StoreBagFailException.class);
+
     }
 }
