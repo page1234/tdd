@@ -9,8 +9,6 @@ public class StoreContentArk {
 
     private final int space;
 
-    private int hadStoredCount;
-
     private final Map<QRCode, Bag> arks;
 
     public StoreContentArk(int space) {
@@ -19,11 +17,9 @@ public class StoreContentArk {
     }
 
     public QRCode store(Bag bag) {
-        if (hadStoredCount >= space) {
+        if (arks.size() >= space) {
             throw new StoreBagFailException();
         }
-
-        hadStoredCount++;
 
         QRCode qrCode = new QRCode();
         arks.put(qrCode, bag);
