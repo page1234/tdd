@@ -1,5 +1,6 @@
 package com.page.tdd;
 
+import com.page.tdd.exception.InvalidQRCodeException;
 import com.page.tdd.exception.StoreBagFailException;
 import com.page.tdd.exception.StoreContentArkFullException;
 
@@ -40,7 +41,7 @@ public class JuniorWaiter {
     private Optional<?> pickUpFromStoreContentArk(QRCode qrcode, StoreContentArk storeContentArk) {
         try {
             return Optional.ofNullable(storeContentArk.pickUp(qrcode));
-        } catch (Exception e) {
+        } catch (InvalidQRCodeException e) {
             return Optional.empty();
         }
     }
