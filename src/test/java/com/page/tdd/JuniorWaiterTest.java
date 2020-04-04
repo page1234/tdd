@@ -1,5 +1,6 @@
 package com.page.tdd;
 
+import com.page.tdd.exception.InvalidQRCodeException;
 import com.page.tdd.exception.QRCodeHadUsedException;
 import com.page.tdd.exception.StoreBagFailException;
 import com.page.tdd.exception.StoreContentArkFullException;
@@ -80,7 +81,16 @@ public class JuniorWaiterTest {
         QRCode qrCode = juniorWaiter.store(bag);
         juniorWaiter.pickUp(qrCode);
 
-        thenThrownBy(()->juniorWaiter.pickUp(qrCode))
+        thenThrownBy(() -> juniorWaiter.pickUp(qrCode))
                 .isInstanceOf(QRCodeHadUsedException.class);
+    }
+
+    @Test
+    void should_pick_up_fail_when_pick_up_given_invalid_qr_code_and_a_junior_waiter_and_a_store_content_ark() {
+        QRCode qrCode = new QRCode();
+        JuniorWaiter juniorWaiter = new JuniorWaiter(new StoreContentArk(1));
+
+        thenThrownBy(() -> juniorWaiter.pickUp(qrCode))
+                .isInstanceOf(InvalidQRCodeException.class);
     }
 }
