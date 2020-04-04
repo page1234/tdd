@@ -35,7 +35,7 @@ public class JuniorWaiter {
                 .filter(Optional::isPresent)
                 .findFirst()
                 .map(Optional::get)
-                .orElseGet(null);
+                .orElseThrow(InvalidQRCodeException::new);
     }
 
     private Optional<?> pickUpFromStoreContentArk(QRCode qrcode, StoreContentArk storeContentArk) {
