@@ -18,4 +18,18 @@ public class JuniorWaiterTest {
         then(qrCode).isNotNull();
         then(firstStoreContentArk.pickUp(qrCode)).isEqualTo(bag);
     }
+
+    @Test
+    void should_store_in_the_second_store_content_ark_and_got_a_qr_code_when_store_given_a_bag_and_a_junior_waiter_and_2_store_content_arks_with_1_space_and_first_one_is_full() {
+        Bag bag = new Bag();
+        StoreContentArk firstStoreContentArk = new StoreContentArk(1);
+        StoreContentArk secondStoreContentArk = new StoreContentArk(1);
+        firstStoreContentArk.store(new Bag());
+        JuniorWaiter juniorWaiter = new JuniorWaiter(firstStoreContentArk, secondStoreContentArk);
+
+        QRCode qrCode = juniorWaiter.store(bag);
+
+        then(qrCode).isNotNull();
+        then(secondStoreContentArk.pickUp(qrCode)).isEqualTo(bag);
+    }
 }
