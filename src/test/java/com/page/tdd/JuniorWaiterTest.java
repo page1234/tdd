@@ -93,4 +93,15 @@ public class JuniorWaiterTest {
         thenThrownBy(() -> juniorWaiter.pickUp(qrCode))
                 .isInstanceOf(InvalidQRCodeException.class);
     }
+
+    @Test
+    void should_pick_up_fail_when_pick_up_given_a_qr_code_and_a_junior_waiter_and_a_junior_waiter_managed_store_content_ark_and_qr_code_got_from_other_store_content_ark() {
+        QRCode qrCode = new StoreContentArk(1).store(new Bag());
+        JuniorWaiter juniorWaiter = new JuniorWaiter(new StoreContentArk(1));
+
+        thenThrownBy(() -> juniorWaiter.pickUp(qrCode))
+                .isInstanceOf(InvalidQRCodeException.class);
+    }
+
+
 }
