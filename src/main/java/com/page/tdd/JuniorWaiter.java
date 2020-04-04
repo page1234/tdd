@@ -26,4 +26,8 @@ public class JuniorWaiter {
 
         return hadSpaceStoreContentArk.store(bag);
     }
+
+    public Bag pickUp(QRCode qrcode) {
+        return null;
+    }
 }

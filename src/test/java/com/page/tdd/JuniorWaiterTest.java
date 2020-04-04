@@ -57,4 +57,17 @@ public class JuniorWaiterTest {
         thenThrownBy(() -> juniorWaiter.store(bag))
                 .isInstanceOf(StoreBagFailException.class);
     }
+
+    @Test
+    void should_got_bag_when_pick_up_given_a_qr_code_and_a_junior_waiter_and_a_store_content_ark() {
+        Bag bag = new Bag();
+        StoreContentArk firstStoreContentArk = new StoreContentArk(1);
+        StoreContentArk secondStoreContentArk = new StoreContentArk(1);
+        QRCode qrcode = secondStoreContentArk.store(bag);
+        JuniorWaiter juniorWaiter = new JuniorWaiter(firstStoreContentArk, secondStoreContentArk);
+
+        Bag actualBag = juniorWaiter.pickUp(qrcode);
+
+        then(actualBag).isEqualTo(bag);
+    }
 }
