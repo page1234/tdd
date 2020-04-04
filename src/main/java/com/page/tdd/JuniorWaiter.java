@@ -1,11 +1,21 @@
 package com.page.tdd;
 
-public class JuniorWaiter {
-    public JuniorWaiter(StoreContentArk firstStoreContentArk, StoreContentArk secondStoreContentArk) {
+import java.util.Arrays;
+import java.util.List;
 
+public class JuniorWaiter {
+
+    List<StoreContentArk> storeContentArks;
+
+    public JuniorWaiter(StoreContentArk firstStoreContentArk, StoreContentArk secondStoreContentArk) {
+        storeContentArks = Arrays.asList(
+                firstStoreContentArk,
+                secondStoreContentArk
+        );
     }
 
     public QRCode store(Bag bag) {
-        return null;
+        StoreContentArk storeContentArk = storeContentArks.get(0);
+        return storeContentArk.store(bag);
     }
 }
