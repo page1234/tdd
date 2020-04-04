@@ -1,5 +1,6 @@
 package com.page.tdd;
 
+import com.page.tdd.exception.QRCodeHadUsedException;
 import com.page.tdd.exception.StoreBagFailException;
 import com.page.tdd.exception.StoreContentArkFullException;
 import org.junit.jupiter.api.Test;
@@ -69,5 +70,17 @@ public class JuniorWaiterTest {
         Bag actualBag = juniorWaiter.pickUp(qrcode);
 
         then(actualBag).isEqualTo(bag);
+    }
+
+    @Test
+    void should_pick_up_fail_when_pick_up_given_a_used_qrcode_and_a_junior_waiter_and_a_store_content_ark() {
+        Bag bag = new Bag();
+        StoreContentArk storeContentArk = new StoreContentArk(1);
+        JuniorWaiter juniorWaiter = new JuniorWaiter(storeContentArk);
+        QRCode qrCode = juniorWaiter.store(bag);
+        juniorWaiter.pickUp(qrCode);
+
+        thenThrownBy(()->juniorWaiter.pickUp(qrCode))
+                .isInstanceOf(QRCodeHadUsedException.class);
     }
 }
