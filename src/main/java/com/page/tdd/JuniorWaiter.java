@@ -1,5 +1,6 @@
 package com.page.tdd;
 
+import com.page.tdd.exception.StoreBagFailException;
 import com.page.tdd.exception.StoreContentArkFullException;
 
 import java.util.Arrays;
@@ -14,6 +15,10 @@ public class JuniorWaiter {
     }
 
     public QRCode store(Bag bag) {
+        if (storeContentArks.isEmpty()) {
+            throw new StoreBagFailException();
+        }
+
         StoreContentArk hadSpaceStoreContentArk = storeContentArks.stream()
                 .filter(storeContentArk -> !storeContentArk.isFull())
                 .findFirst()
