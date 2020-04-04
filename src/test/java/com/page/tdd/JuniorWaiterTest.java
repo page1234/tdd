@@ -1,5 +1,6 @@
 package com.page.tdd;
 
+import com.page.tdd.exception.StoreBagFailException;
 import com.page.tdd.exception.StoreContentArkFullException;
 import org.junit.jupiter.api.Test;
 
@@ -46,5 +47,14 @@ public class JuniorWaiterTest {
 
         thenThrownBy(() -> juniorWaiter.store(bag))
                 .isInstanceOf(StoreContentArkFullException.class);
+    }
+
+    @Test
+    void should_store_fail_when_store_given_a_bag_and_a_junior_waiter_and_without_store_content_ark() {
+        Bag bag = new Bag();
+        JuniorWaiter juniorWaiter = new JuniorWaiter();
+
+        thenThrownBy(() -> juniorWaiter.store(bag))
+                .isInstanceOf(StoreBagFailException.class);
     }
 }

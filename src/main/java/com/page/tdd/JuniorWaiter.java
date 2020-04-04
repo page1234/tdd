@@ -9,11 +9,8 @@ public class JuniorWaiter {
 
     List<StoreContentArk> storeContentArks;
 
-    public JuniorWaiter(StoreContentArk firstStoreContentArk, StoreContentArk secondStoreContentArk) {
-        storeContentArks = Arrays.asList(
-                firstStoreContentArk,
-                secondStoreContentArk
-        );
+    public JuniorWaiter(StoreContentArk... storeContentArk) {
+        storeContentArks = Arrays.asList(storeContentArk);
     }
 
     public QRCode store(Bag bag) {
