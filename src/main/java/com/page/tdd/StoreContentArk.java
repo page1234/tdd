@@ -58,4 +58,8 @@ public class StoreContentArk {
     private boolean isQRCodeUsed(QRCode qrCode) {
         return qrCodes.contains(qrCode) && !arks.containsKey(qrCode);
     }
+
+    public boolean isFull() {
+        return true;
+    }
 }

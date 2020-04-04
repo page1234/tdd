@@ -15,8 +15,11 @@ public class JuniorWaiter {
     }
 
     public QRCode store(Bag bag) {
-        return storeContentArks
-                .get(0)
-                .store(bag);
+        if (storeContentArks.get(0).isFull()) {
+            return storeContentArks
+                    .get(1)
+                    .store(bag);
+        }
+        return null;
     }
 }
