@@ -62,4 +62,12 @@ public class StoreContentArkTest {
                 .isInstanceOf(InvalidQRCodeException.class);
     }
 
+    @Test
+    void should_return_false_when_check_is_full_given_a_store_content_ark_with_2_space() {
+        StoreContentArk storeContentArk = new StoreContentArk(2);
+
+        boolean isFull = storeContentArk.isFull();
+
+        then(isFull).isFalse();
+    }
 }
