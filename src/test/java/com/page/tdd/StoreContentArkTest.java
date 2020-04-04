@@ -70,4 +70,14 @@ public class StoreContentArkTest {
 
         then(isFull).isFalse();
     }
+
+    @Test
+    void should_return_false_when_check_is_full_given_a_store_content_ark_with_2_space_and_store_a_bag_in_it() {
+        StoreContentArk storeContentArk = new StoreContentArk(2);
+        storeContentArk.store(new Bag());
+
+        boolean isFull = storeContentArk.isFull();
+
+        then(isFull).isFalse();
+    }
 }
