@@ -15,7 +15,8 @@ public class JuniorWaiter {
     }
 
     public QRCode store(Bag bag) {
-        StoreContentArk storeContentArk = storeContentArks.get(0);
-        return storeContentArk.store(bag);
+        return storeContentArks
+                .get(0)
+                .store(bag);
     }
 }
