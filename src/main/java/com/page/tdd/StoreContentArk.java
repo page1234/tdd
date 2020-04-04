@@ -60,6 +60,9 @@ public class StoreContentArk {
     }
 
     public boolean isFull() {
-        return true;
+        if (arks.size() == space){
+            return true;
+        }
+        return false;
     }
 }
