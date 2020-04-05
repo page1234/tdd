@@ -24,7 +24,7 @@ public class StoreContentArk {
     }
 
     public QRCode store(Bag bag) {
-        if (arks.size() >= space) {
+        if (isFull()) {
             throw new StoreBagFailException();
         }
 
