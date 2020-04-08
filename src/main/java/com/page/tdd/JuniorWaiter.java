@@ -10,7 +10,7 @@ import java.util.Optional;
 
 public class JuniorWaiter {
 
-    List<StoreContentArk> storeContentArks;
+    private List<StoreContentArk> storeContentArks;
 
     public JuniorWaiter(StoreContentArk... storeContentArk) {
         storeContentArks = Arrays.asList(storeContentArk);
@@ -45,5 +45,16 @@ public class JuniorWaiter {
         } catch (InvalidQRCodeException e) {
             return Optional.empty();
         }
+    }
+
+    public void storeAndGivingCard(Bag bag) {
+
+    }
+
+    public void clockIn() {
+
+    }
+
+    public void pickUpOneCard() {
     }
 }

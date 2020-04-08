@@ -6,9 +6,12 @@ import com.page.tdd.exception.StoreBagFailException;
 import com.page.tdd.exception.StoreContentArkFullException;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
+import org.mockito.stubbing.OngoingStubbing;
 
 import static org.assertj.core.api.BDDAssertions.then;
 import static org.assertj.core.api.BDDAssertions.thenThrownBy;
+import static org.mockito.Mockito.*;
 
 public class JuniorWaiterTest {
 
@@ -74,6 +77,19 @@ public class JuniorWaiterTest {
             Bag actualBag = juniorWaiter.pickUp(qrcode);
 
             then(actualBag).isEqualTo(bag);
+        }
+
+        @Test
+        void should_invoked_store_and_clock_in_and_pick_up_a_card_when_store_given_a_bag_and_a_junior_waiter() {
+            Bag bag = new Bag();
+            JuniorWaiter juniorWaiter = Mockito.mock(JuniorWaiter.class);
+            doCallRealMethod().when(juniorWaiter).storeAndGivingCard(bag);
+
+            juniorWaiter.storeAndGivingCard(bag);
+
+            verify(juniorWaiter).store(bag);
+            verify(juniorWaiter).clockIn();
+            verify(juniorWaiter).pickUpOneCard();
         }
     }
 
