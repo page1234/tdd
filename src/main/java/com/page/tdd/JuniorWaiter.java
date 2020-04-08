@@ -13,6 +13,8 @@ public class JuniorWaiter {
 
     private List<StoreContentArk> storeContentArks;
 
+    private ArrayList<Record> records = new ArrayList<>();
+
     public JuniorWaiter(StoreContentArk... storeContentArk) {
         storeContentArks = Arrays.asList(storeContentArk);
     }
@@ -58,13 +60,13 @@ public class JuniorWaiter {
     }
 
     public void clockIn() {
-
+        records.add(new Record());
     }
 
     public void pickUpOneCard() {
     }
 
     public List<Record> getRecords() {
-        return new ArrayList<>();
+        return records;
     }
 }
