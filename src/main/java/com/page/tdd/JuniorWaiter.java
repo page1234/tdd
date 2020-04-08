@@ -48,7 +48,11 @@ public class JuniorWaiter {
     }
 
     public void storeAndGivingCard(Bag bag) {
+        store(bag);
 
+        clockIn();
+
+        pickUpOneCard();
     }
 
     public void clockIn() {
