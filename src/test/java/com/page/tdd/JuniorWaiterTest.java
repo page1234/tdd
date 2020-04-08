@@ -7,11 +7,11 @@ import com.page.tdd.exception.StoreContentArkFullException;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
-import org.mockito.stubbing.OngoingStubbing;
 
 import static org.assertj.core.api.BDDAssertions.then;
 import static org.assertj.core.api.BDDAssertions.thenThrownBy;
 import static org.mockito.Mockito.*;
+
 
 public class JuniorWaiterTest {
 
@@ -24,7 +24,7 @@ public class JuniorWaiterTest {
             StoreContentArk secondStoreContentArk = new StoreContentArk(10);
             JuniorWaiter juniorWaiter = new JuniorWaiter(firstStoreContentArk, secondStoreContentArk);
 
-            QRCode qrCode = juniorWaiter.store(bag);
+            QRCode qrCode = juniorWaiter.storeAndGivingCard(bag);
 
             then(qrCode).isNotNull();
             then(firstStoreContentArk.pickUp(qrCode)).isEqualTo(bag);
@@ -38,7 +38,7 @@ public class JuniorWaiterTest {
             firstStoreContentArk.store(new Bag());
             JuniorWaiter juniorWaiter = new JuniorWaiter(firstStoreContentArk, secondStoreContentArk);
 
-            QRCode qrCode = juniorWaiter.store(bag);
+            QRCode qrCode = juniorWaiter.storeAndGivingCard(bag);
 
             then(qrCode).isNotNull();
             then(secondStoreContentArk.pickUp(qrCode)).isEqualTo(bag);
@@ -53,7 +53,7 @@ public class JuniorWaiterTest {
             secondStoreContentArk.store(new Bag());
             JuniorWaiter juniorWaiter = new JuniorWaiter(firstStoreContentArk, secondStoreContentArk);
 
-            thenThrownBy(() -> juniorWaiter.store(bag))
+            thenThrownBy(() -> juniorWaiter.storeAndGivingCard(bag))
                     .isInstanceOf(StoreContentArkFullException.class);
         }
 
@@ -62,7 +62,7 @@ public class JuniorWaiterTest {
             Bag bag = new Bag();
             JuniorWaiter juniorWaiter = new JuniorWaiter();
 
-            thenThrownBy(() -> juniorWaiter.store(bag))
+            thenThrownBy(() -> juniorWaiter.storeAndGivingCard(bag))
                     .isInstanceOf(StoreBagFailException.class);
         }
 
@@ -84,6 +84,7 @@ public class JuniorWaiterTest {
             Bag bag = new Bag();
             JuniorWaiter juniorWaiter = Mockito.mock(JuniorWaiter.class);
             doCallRealMethod().when(juniorWaiter).storeAndGivingCard(bag);
+            when(juniorWaiter.store(bag)).thenReturn(new QRCode());
 
             juniorWaiter.storeAndGivingCard(bag);
 
@@ -100,7 +101,7 @@ public class JuniorWaiterTest {
             Bag bag = new Bag();
             StoreContentArk storeContentArk = new StoreContentArk(1);
             JuniorWaiter juniorWaiter = new JuniorWaiter(storeContentArk);
-            QRCode qrCode = juniorWaiter.store(bag);
+            QRCode qrCode = juniorWaiter.storeAndGivingCard(bag);
             juniorWaiter.pickUp(qrCode);
 
             thenThrownBy(() -> juniorWaiter.pickUp(qrCode))

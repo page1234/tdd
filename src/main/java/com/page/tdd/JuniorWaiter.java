@@ -16,8 +16,7 @@ public class JuniorWaiter {
         storeContentArks = Arrays.asList(storeContentArk);
     }
 
-    @Deprecated
-    public QRCode store(Bag bag) {
+    protected QRCode store(Bag bag) {
         if (storeContentArks.isEmpty()) {
             throw new StoreBagFailException();
         }
@@ -47,12 +46,14 @@ public class JuniorWaiter {
         }
     }
 
-    public void storeAndGivingCard(Bag bag) {
-        store(bag);
+    public QRCode storeAndGivingCard(Bag bag) {
+        QRCode qrCode = store(bag);
 
         clockIn();
 
         pickUpOneCard();
+
+        return qrCode;
     }
 
     public void clockIn() {
