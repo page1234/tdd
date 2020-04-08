@@ -19,6 +19,10 @@ public class JuniorWaiter {
         storeContentArks = Arrays.asList(storeContentArk);
     }
 
+    public JuniorWaiter(List<Card> cards, StoreContentArk... storeContentArk) {
+        this.storeContentArks = Arrays.asList(storeContentArk);
+    }
+
     protected QRCode store(Bag bag) {
         if (storeContentArks.isEmpty()) {
             throw new StoreBagFailException();
@@ -49,21 +53,25 @@ public class JuniorWaiter {
         }
     }
 
-    public QRCode storeAndGivingCard(Bag bag) {
+    public StoreResult storeAndGivingCard(Bag bag) {
         QRCode qrCode = store(bag);
 
         clockIn();
 
-        pickUpOneCard();
+        Card card = pickUpOneCard();
 
-        return qrCode;
+        return StoreResult.builder()
+                .qrCode(qrCode)
+                .card(card)
+                .build();
     }
 
     public void clockIn() {
         records.add(new Record());
     }
 
-    public void pickUpOneCard() {
+    public Card pickUpOneCard() {
+        return null;
     }
 
     public List<Record> getRecords() {

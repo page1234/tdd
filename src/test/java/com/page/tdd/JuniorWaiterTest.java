@@ -8,6 +8,9 @@ import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
+import java.util.Collections;
+import java.util.List;
+
 import static org.assertj.core.api.BDDAssertions.then;
 import static org.assertj.core.api.BDDAssertions.thenThrownBy;
 import static org.mockito.Mockito.*;
@@ -24,10 +27,10 @@ public class JuniorWaiterTest {
             StoreContentArk secondStoreContentArk = new StoreContentArk(10);
             JuniorWaiter juniorWaiter = new JuniorWaiter(firstStoreContentArk, secondStoreContentArk);
 
-            QRCode qrCode = juniorWaiter.storeAndGivingCard(bag);
+            StoreResult storeResult = juniorWaiter.storeAndGivingCard(bag);
 
-            then(qrCode).isNotNull();
-            then(firstStoreContentArk.pickUp(qrCode)).isEqualTo(bag);
+            then(storeResult).isNotNull();
+            then(firstStoreContentArk.pickUp(storeResult.getQrCode())).isEqualTo(bag);
         }
 
         @Test
@@ -38,10 +41,10 @@ public class JuniorWaiterTest {
             firstStoreContentArk.store(new Bag());
             JuniorWaiter juniorWaiter = new JuniorWaiter(firstStoreContentArk, secondStoreContentArk);
 
-            QRCode qrCode = juniorWaiter.storeAndGivingCard(bag);
+            StoreResult storeResult = juniorWaiter.storeAndGivingCard(bag);
 
-            then(qrCode).isNotNull();
-            then(secondStoreContentArk.pickUp(qrCode)).isEqualTo(bag);
+            then(storeResult).isNotNull();
+            then(secondStoreContentArk.pickUp(storeResult.getQrCode())).isEqualTo(bag);
         }
 
         @Test
@@ -115,19 +118,32 @@ public class JuniorWaiterTest {
                     .isInstanceOf(StoreContentArkFullException.class);
             then(juniorWaiter.getRecords().size()).isEqualTo(recordAmount);
         }
+
+        @Test
+        void should_get_a_card_when_store_given_a_bag_and_a_junior_waiter_and_a_store_content_ark_with_1_space_and_a_card() {
+            Bag bag = new Bag();
+            StoreContentArk storeContentArk = new StoreContentArk(1);
+            Card card = new Card();
+            List<Card> cards = Collections.singletonList(card);
+            JuniorWaiter juniorWaiter = new JuniorWaiter(cards, storeContentArk);
+
+            StoreResult storeResult = juniorWaiter.storeAndGivingCard(bag);
+
+            then(storeResult.getCard()).isEqualTo(card);
+        }
     }
 
     @Nested
     class JuniorWaiterPickUpTest {
         @Test
-        void should_pick_up_fail_when_pick_up_given_a_used_qrcode_and_a_junior_waiter_and_a_store_content_ark() {
+        void should_pick_up_fail_when_pick_up_given_a_used_qr_code_and_a_junior_waiter_and_a_store_content_ark() {
             Bag bag = new Bag();
             StoreContentArk storeContentArk = new StoreContentArk(1);
             JuniorWaiter juniorWaiter = new JuniorWaiter(storeContentArk);
-            QRCode qrCode = juniorWaiter.storeAndGivingCard(bag);
-            juniorWaiter.pickUp(qrCode);
+            StoreResult storeResult = juniorWaiter.storeAndGivingCard(bag);
+            juniorWaiter.pickUp(storeResult.getQrCode());
 
-            thenThrownBy(() -> juniorWaiter.pickUp(qrCode))
+            thenThrownBy(() -> juniorWaiter.pickUp(storeResult.getQrCode()))
                     .isInstanceOf(QRCodeHadUsedException.class);
         }
 
