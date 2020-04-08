@@ -92,6 +92,17 @@ public class JuniorWaiterTest {
             verify(juniorWaiter).clockIn();
             verify(juniorWaiter).pickUpOneCard();
         }
+
+        @Test
+        void should_get_1_record_when_store_given_a_bag_and_a_junior_waiter_and_a_store_content_ark_with_1_space() {
+            Bag bag = new Bag();
+            JuniorWaiter juniorWaiter = new JuniorWaiter(new StoreContentArk(1));
+            int recordAmount = juniorWaiter.getRecords().size();
+
+            juniorWaiter.storeAndGivingCard(bag);
+
+            then(juniorWaiter.getRecords().size()).isEqualTo(recordAmount + 1);
+        }
     }
 
     @Nested

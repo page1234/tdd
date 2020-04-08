@@ -4,6 +4,7 @@ import com.page.tdd.exception.InvalidQRCodeException;
 import com.page.tdd.exception.StoreBagFailException;
 import com.page.tdd.exception.StoreContentArkFullException;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -61,5 +62,9 @@ public class JuniorWaiter {
     }
 
     public void pickUpOneCard() {
+    }
+
+    public List<Record> getRecords() {
+        return new ArrayList<>();
     }
 }
