@@ -131,6 +131,17 @@ public class JuniorWaiterTest {
 
             then(storeResult.getCard()).isEqualTo(card);
         }
+
+        @Test
+        void should_get_a_card_when_store_given_a_bag_and_a_junior_waiter_and_a_store_content_ark_with_1_space_and_without_card() {
+            Bag bag = new Bag();
+            StoreContentArk storeContentArk = new StoreContentArk(1);
+            JuniorWaiter juniorWaiter = new JuniorWaiter(storeContentArk);
+
+            StoreResult storeResult = juniorWaiter.storeAndGivingCard(bag);
+
+            then(storeResult.getCard()).isNull();
+        }
     }
 
     @Nested
