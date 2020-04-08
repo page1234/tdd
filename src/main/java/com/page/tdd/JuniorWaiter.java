@@ -16,6 +16,7 @@ public class JuniorWaiter {
         storeContentArks = Arrays.asList(storeContentArk);
     }
 
+    @Deprecated
     public QRCode store(Bag bag) {
         if (storeContentArks.isEmpty()) {
             throw new StoreBagFailException();
