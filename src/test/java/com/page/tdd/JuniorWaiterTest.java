@@ -25,7 +25,7 @@ public class JuniorWaiterTest {
             Bag bag = new Bag();
             StoreContentArk firstStoreContentArk = new StoreContentArk(10);
             StoreContentArk secondStoreContentArk = new StoreContentArk(10);
-            JuniorWaiter juniorWaiter = new JuniorWaiter(firstStoreContentArk, secondStoreContentArk);
+            JuniorWaiter juniorWaiter = new JuniorWaiter(Collections.emptyList(), firstStoreContentArk, secondStoreContentArk);
 
             StoreResult storeResult = juniorWaiter.storeAndGivingCard(bag);
 
@@ -39,7 +39,7 @@ public class JuniorWaiterTest {
             StoreContentArk firstStoreContentArk = new StoreContentArk(1);
             StoreContentArk secondStoreContentArk = new StoreContentArk(1);
             firstStoreContentArk.store(new Bag());
-            JuniorWaiter juniorWaiter = new JuniorWaiter(firstStoreContentArk, secondStoreContentArk);
+            JuniorWaiter juniorWaiter = new JuniorWaiter(Collections.emptyList(), firstStoreContentArk, secondStoreContentArk);
 
             StoreResult storeResult = juniorWaiter.storeAndGivingCard(bag);
 
@@ -99,7 +99,7 @@ public class JuniorWaiterTest {
         @Test
         void should_get_1_record_when_store_given_a_bag_and_a_junior_waiter_and_a_store_content_ark_with_1_space() {
             Bag bag = new Bag();
-            JuniorWaiter juniorWaiter = new JuniorWaiter(new StoreContentArk(1));
+            JuniorWaiter juniorWaiter = new JuniorWaiter(Collections.emptyList(), new StoreContentArk(1));
             int recordAmount = juniorWaiter.getRecords().size();
 
             juniorWaiter.storeAndGivingCard(bag);
@@ -110,7 +110,7 @@ public class JuniorWaiterTest {
         @Test
         void should_get_1_record_when_store_given_a_bag_and_a_junior_waiter_and_a_store_content_ark_with_1_space_and_had_store_a_bag_in_it() {
             Bag bag = new Bag();
-            JuniorWaiter juniorWaiter = new JuniorWaiter(new StoreContentArk(1));
+            JuniorWaiter juniorWaiter = new JuniorWaiter(Collections.emptyList(), new StoreContentArk(1));
             juniorWaiter.storeAndGivingCard(new Bag());
             int recordAmount = juniorWaiter.getRecords().size();
 
@@ -139,7 +139,7 @@ public class JuniorWaiterTest {
         void should_pick_up_fail_when_pick_up_given_a_used_qr_code_and_a_junior_waiter_and_a_store_content_ark() {
             Bag bag = new Bag();
             StoreContentArk storeContentArk = new StoreContentArk(1);
-            JuniorWaiter juniorWaiter = new JuniorWaiter(storeContentArk);
+            JuniorWaiter juniorWaiter = new JuniorWaiter(Collections.emptyList(), storeContentArk);
             StoreResult storeResult = juniorWaiter.storeAndGivingCard(bag);
             juniorWaiter.pickUp(storeResult.getQrCode());
 

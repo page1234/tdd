@@ -15,12 +15,15 @@ public class JuniorWaiter {
 
     private ArrayList<Record> records = new ArrayList<>();
 
+    private List<Card> cards;
+
     public JuniorWaiter(StoreContentArk... storeContentArk) {
         storeContentArks = Arrays.asList(storeContentArk);
     }
 
     public JuniorWaiter(List<Card> cards, StoreContentArk... storeContentArk) {
         this.storeContentArks = Arrays.asList(storeContentArk);
+        this.cards = new ArrayList<>(cards);
     }
 
     protected QRCode store(Bag bag) {
@@ -58,11 +61,14 @@ public class JuniorWaiter {
 
         clockIn();
 
-        Card card = pickUpOneCard();
+        Optional<Card> cardOptional = pickUpOneCard();
 
-        return StoreResult.builder()
-                .qrCode(qrCode)
-                .card(card)
+        StoreResult.StoreResultBuilder storeResultBuilder = StoreResult.builder()
+                .qrCode(qrCode);
+
+        cardOptional.ifPresent(storeResultBuilder::card);
+
+        return storeResultBuilder
                 .build();
     }
 
@@ -70,8 +76,10 @@ public class JuniorWaiter {
         records.add(new Record());
     }
 
-    public Card pickUpOneCard() {
-        return null;
+    public Optional<Card> pickUpOneCard() {
+        return cards.size() > 0 ?
+                Optional.ofNullable(cards.remove(cards.size() - 1)) :
+                Optional.empty();
     }
 
     public List<Record> getRecords() {
