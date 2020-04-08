@@ -4,10 +4,7 @@ import com.page.tdd.exception.InvalidQRCodeException;
 import com.page.tdd.exception.StoreBagFailException;
 import com.page.tdd.exception.StoreContentArkFullException;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 public class JuniorWaiter {
 
@@ -19,6 +16,7 @@ public class JuniorWaiter {
 
     public JuniorWaiter(StoreContentArk... storeContentArk) {
         storeContentArks = Arrays.asList(storeContentArk);
+        cards = Collections.emptyList();
     }
 
     public JuniorWaiter(List<Card> cards, StoreContentArk... storeContentArk) {
