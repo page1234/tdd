@@ -63,12 +63,9 @@ public class JuniorWaiter {
 
         Optional<Card> cardOptional = pickUpOneCard();
 
-        StoreResult.StoreResultBuilder storeResultBuilder = StoreResult.builder()
-                .qrCode(qrCode);
-
-        cardOptional.ifPresent(storeResultBuilder::card);
-
-        return storeResultBuilder
+        return StoreResult.builder()
+                .qrCode(qrCode)
+                .card(cardOptional.orElse(null))
                 .build();
     }
 
