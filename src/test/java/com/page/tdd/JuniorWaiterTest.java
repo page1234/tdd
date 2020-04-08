@@ -103,6 +103,18 @@ public class JuniorWaiterTest {
 
             then(juniorWaiter.getRecords().size()).isEqualTo(recordAmount + 1);
         }
+
+        @Test
+        void should_get_1_record_when_store_given_a_bag_and_a_junior_waiter_and_a_store_content_ark_with_1_space_and_had_store_a_bag_in_it() {
+            Bag bag = new Bag();
+            JuniorWaiter juniorWaiter = new JuniorWaiter(new StoreContentArk(1));
+            juniorWaiter.storeAndGivingCard(new Bag());
+            int recordAmount = juniorWaiter.getRecords().size();
+
+            thenThrownBy(() -> juniorWaiter.storeAndGivingCard(bag))
+                    .isInstanceOf(StoreContentArkFullException.class);
+            then(juniorWaiter.getRecords().size()).isEqualTo(recordAmount);
+        }
     }
 
     @Nested
