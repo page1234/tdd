@@ -6,8 +6,6 @@ import java.util.*;
 
 public class JuniorWaiter extends Waiter {
 
-    private ArrayList<Record> records = new ArrayList<>();
-
     private List<Card> cards;
 
     public JuniorWaiter(StoreContentArk... storeContentArk) {
@@ -61,17 +59,9 @@ public class JuniorWaiter extends Waiter {
                 .build();
     }
 
-    public void clockIn() {
-        records.add(new Record());
-    }
-
     public Optional<Card> pickUpOneCard() {
         return cards.size() > 0 ?
                 Optional.ofNullable(cards.remove(cards.size() - 1)) :
                 Optional.empty();
-    }
-
-    public List<Record> getRecords() {
-        return records;
     }
 }

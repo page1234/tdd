@@ -34,15 +34,7 @@ public class SeniorWaiter extends Waiter {
         return storeContentArk.store(bag);
     }
 
-    protected void clockIn() {
-
-    }
-
     protected void pickUpOneCard() {
 
-    }
-
-    public int getRecords() {
-        return 0;
     }
 }

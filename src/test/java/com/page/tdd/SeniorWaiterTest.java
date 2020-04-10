@@ -82,8 +82,8 @@ public class SeniorWaiterTest {
         SeniorWaiter seniorWaiter = new SeniorWaiter(Collections.singletonList(new StoreContentArk(1)));
         seniorWaiter.storeAndGivingCard(bag);
 
-        int records = seniorWaiter.getRecords();
+        List<Record> records = seniorWaiter.getRecords();
 
-        then(records).isEqualTo(1);
+        then(records.size()).isEqualTo(1);
     }
 }
