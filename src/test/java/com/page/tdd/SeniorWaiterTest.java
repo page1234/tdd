@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import static org.assertj.core.api.BDDAssertions.then;
@@ -73,5 +74,16 @@ public class SeniorWaiterTest {
 
         thenThrownBy(() -> seniorWaiter.storeAndGivingCard(bag))
                 .isInstanceOf(StoreBagFailException.class);
+    }
+
+    @Test
+    void should_get_clock_in_amount_is_1_when_get_records_given_a_bag_and_a_senior_waiter_and_a_store_content_ark_with_1_space_and_store_bag_in_it() throws Exception {
+        Bag bag = new Bag();
+        SeniorWaiter seniorWaiter = new SeniorWaiter(Collections.singletonList(new StoreContentArk(1)));
+        seniorWaiter.storeAndGivingCard(bag);
+
+        int records = seniorWaiter.getRecords();
+
+        then(records).isEqualTo(1);
     }
 }

@@ -41,4 +41,8 @@ public class SeniorWaiter extends Waiter {
     protected void pickUpOneCard() {
 
     }
+
+    public int getRecords() {
+        return 0;
+    }
 }
