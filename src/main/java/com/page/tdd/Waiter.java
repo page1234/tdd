@@ -51,4 +51,19 @@ public abstract class Waiter {
                 Optional.ofNullable(cards.remove(cards.size() - 1)) :
                 Optional.empty();
     }
+
+    protected abstract QRCode store(Bag bag);
+
+    public StoreResult storeAndGivingCard(Bag bag) {
+        QRCode qrCode = store(bag);
+
+        clockIn();
+
+        Optional<Card> cardOptional = pickUpOneCard();
+
+        return StoreResult.builder()
+                .qrCode(qrCode)
+                .card(cardOptional.orElse(null))
+                .build();
+    }
 }

@@ -43,17 +43,4 @@ public class JuniorWaiter extends Waiter {
             return Optional.empty();
         }
     }
-
-    public StoreResult storeAndGivingCard(Bag bag) {
-        QRCode qrCode = store(bag);
-
-        clockIn();
-
-        Optional<Card> cardOptional = pickUpOneCard();
-
-        return StoreResult.builder()
-                .qrCode(qrCode)
-                .card(cardOptional.orElse(null))
-                .build();
-    }
 }

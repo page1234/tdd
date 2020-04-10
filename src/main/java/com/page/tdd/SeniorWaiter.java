@@ -17,25 +17,12 @@ public class SeniorWaiter extends Waiter {
         this.storeContentArks = storeContentArks;
     }
 
-    public StoreResult storeAndGivingCard(Bag bag) throws Exception {
-        QRCode qrCode = store(bag);
-
-        clockIn();
-
-        Optional<Card> cardOptional = pickUpOneCard();
-
-        return StoreResult.builder()
-                .qrCode(qrCode)
-                .card(cardOptional.orElse(null))
-                .build();
-    }
-
-    protected QRCode store(Bag bag) throws Exception {
+    protected QRCode store(Bag bag) {
         verify();
 
         StoreContentArk storeContentArk = storeContentArks.stream()
                 .max(Comparator.comparingInt(StoreContentArk::getFreeSpaceAmount))
-                .orElseThrow(Exception::new);
+                .get();
 
         return storeContentArk.store(bag);
     }
