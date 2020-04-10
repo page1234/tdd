@@ -1,14 +1,10 @@
 package com.page.tdd;
 
 import com.page.tdd.exception.InvalidQRCodeException;
-import com.page.tdd.exception.StoreBagFailException;
-import com.page.tdd.exception.StoreContentArkFullException;
 
 import java.util.*;
 
-public class JuniorWaiter {
-
-    private List<StoreContentArk> storeContentArks;
+public class JuniorWaiter extends Waiter {
 
     private ArrayList<Record> records = new ArrayList<>();
 
@@ -25,14 +21,12 @@ public class JuniorWaiter {
     }
 
     protected QRCode store(Bag bag) {
-        if (storeContentArks.isEmpty()) {
-            throw new StoreBagFailException();
-        }
+        verify();
 
         StoreContentArk hadSpaceStoreContentArk = storeContentArks.stream()
                 .filter(storeContentArk -> !storeContentArk.isFull())
                 .findFirst()
-                .orElseThrow(StoreContentArkFullException::new);
+                .get();
 
         return hadSpaceStoreContentArk.store(bag);
     }

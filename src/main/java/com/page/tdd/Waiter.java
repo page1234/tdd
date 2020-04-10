@@ -27,7 +27,7 @@ public abstract class Waiter {
     }
 
     private void verifyHadStoreContentArksCouldUse() {
-        if (Objects.isNull(storeContentArks)) {
+        if (Objects.isNull(storeContentArks) || storeContentArks.isEmpty()) {
             throw new StoreBagFailException();
         }
     }
