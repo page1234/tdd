@@ -40,4 +40,16 @@ public class SeniorWaiterTest {
         then(qrCode).isNotNull();
         then(storeContentArk.pickUp(qrCode)).isEqualTo(bag);
     }
+
+    @Test
+    void should_got_a_qr_code_when_store_and_giving_card_given_a_bag_and_a_senior_waiter_and_2_store_content_arks_with_1_space() throws Exception {
+        Bag bag = new Bag();
+        StoreContentArk firstStoreContentArk = new StoreContentArk(1);
+        StoreContentArk secondStoreContentArk = new StoreContentArk(1);
+        SeniorWaiter seniorWaiter = new SeniorWaiter(Arrays.asList(firstStoreContentArk, secondStoreContentArk));
+
+        StoreResult storeResult = seniorWaiter.storeAndGivingCard(bag);
+
+        then(firstStoreContentArk.pickUp(storeResult.getQrCode())).isEqualTo(bag);
+    }
 }
