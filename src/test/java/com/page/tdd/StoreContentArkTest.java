@@ -90,4 +90,13 @@ public class StoreContentArkTest {
 
         then(isFull).isTrue();
     }
+
+    @Test
+    void should_get_1_when_get_free_space_amount_given_a_store_content_ark_with_1_space() {
+        StoreContentArk storeContentArk = new StoreContentArk(1);
+
+        int freeSpaceAmount = storeContentArk.getFreeSpaceAmount();
+
+        then(freeSpaceAmount).isEqualTo(1);
+    }
 }
