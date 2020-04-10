@@ -6,8 +6,6 @@ import java.util.*;
 
 public class JuniorWaiter extends Waiter {
 
-    private List<Card> cards;
-
     public JuniorWaiter(StoreContentArk... storeContentArk) {
         storeContentArks = Arrays.asList(storeContentArk);
         cards = Collections.emptyList();
@@ -57,11 +55,5 @@ public class JuniorWaiter extends Waiter {
                 .qrCode(qrCode)
                 .card(cardOptional.orElse(null))
                 .build();
-    }
-
-    public Optional<Card> pickUpOneCard() {
-        return cards.size() > 0 ?
-                Optional.ofNullable(cards.remove(cards.size() - 1)) :
-                Optional.empty();
     }
 }

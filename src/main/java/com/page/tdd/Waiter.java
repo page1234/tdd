@@ -6,6 +6,7 @@ import com.page.tdd.exception.StoreContentArkFullException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 public abstract class Waiter {
@@ -13,6 +14,8 @@ public abstract class Waiter {
     protected List<StoreContentArk> storeContentArks;
 
     private ArrayList<Record> records = new ArrayList<>();
+
+    protected List<Card> cards;
 
     protected void verify() {
         verifyHadStoreContentArksCouldUse();
@@ -41,5 +44,11 @@ public abstract class Waiter {
 
     public List<Record> getRecords() {
         return records;
+    }
+
+    public Optional<Card> pickUpOneCard() {
+        return cards.size() > 0 ?
+                Optional.ofNullable(cards.remove(cards.size() - 1)) :
+                Optional.empty();
     }
 }
