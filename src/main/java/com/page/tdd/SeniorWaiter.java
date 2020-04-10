@@ -1,5 +1,6 @@
 package com.page.tdd;
 
+import java.util.Comparator;
 import java.util.List;
 
 public class SeniorWaiter {
@@ -23,12 +24,7 @@ public class SeniorWaiter {
 
     protected QRCode store(Bag bag) throws Exception {
         StoreContentArk storeContentArk = storeContentArks.stream()
-                .max((firstStoreContentArk, secondStoreContentArk) -> {
-                    if (firstStoreContentArk.getFreeSpaceAmount() > secondStoreContentArk.getFreeSpaceAmount()) {
-                        return 1;
-                    }
-                    return -1;
-                })
+                .max(Comparator.comparingInt(StoreContentArk::getFreeSpaceAmount))
                 .orElseThrow(Exception::new);
         return storeContentArk.store(bag);
     }
