@@ -3,6 +3,10 @@ package com.page.tdd;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
+import java.util.Arrays;
+import java.util.List;
+
+import static org.assertj.core.api.BDDAssertions.then;
 import static org.mockito.Mockito.verify;
 
 public class SeniorWaiterTest {
@@ -20,5 +24,20 @@ public class SeniorWaiterTest {
         verify(seniorWaiter).store();
         verify(seniorWaiter).clockIn();
         verify(seniorWaiter).pickUpOneCard();
+    }
+
+    @Test
+    void should_got_a_qr_code_when_store_and_giving_card_given_a_bag_and_a_senior_waiter_and_a_store_content_ark_with_1_space_and_a_store_content_ark_with_2_space() {
+        Bag bag = new Bag();
+        StoreContentArk storeContentArk = new StoreContentArk(2);
+        List<StoreContentArk> storeContentArks = Arrays.asList(new StoreContentArk(1), storeContentArk);
+        SeniorWaiter seniorWaiter = new SeniorWaiter(storeContentArks);
+
+        StoreResult storeResult = seniorWaiter.storeAndGivingCard(bag);
+
+        then(storeResult).isNotNull();
+        QRCode qrCode = storeResult.getQrCode();
+        then(qrCode).isNotNull();
+        then(storeContentArk.pickUp(qrCode)).isEqualTo(bag);
     }
 }
