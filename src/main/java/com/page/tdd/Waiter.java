@@ -1,5 +1,6 @@
 package com.page.tdd;
 
+import com.page.tdd.exception.InvalidQRCodeException;
 import com.page.tdd.exception.StoreBagFailException;
 import com.page.tdd.exception.StoreContentArkFullException;
 
@@ -65,5 +66,22 @@ public abstract class Waiter {
                 .qrCode(qrCode)
                 .card(cardOptional.orElse(null))
                 .build();
+    }
+
+    public Bag pickUp(QRCode qrcode) {
+        return (Bag) storeContentArks.stream()
+                .map(storeContentArk -> pickUpFromStoreContentArk(qrcode, storeContentArk))
+                .filter(Optional::isPresent)
+                .findFirst()
+                .map(Optional::get)
+                .orElseThrow(InvalidQRCodeException::new);
+    }
+
+    private Optional<?> pickUpFromStoreContentArk(QRCode qrcode, StoreContentArk storeContentArk) {
+        try {
+            return Optional.ofNullable(storeContentArk.pickUp(qrcode));
+        } catch (InvalidQRCodeException e) {
+            return Optional.empty();
+        }
     }
 }
