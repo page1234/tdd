@@ -12,6 +12,9 @@ public class SeniorWaiter extends Waiter {
     public SeniorWaiter() {
     }
 
+    public <T> SeniorWaiter(List<T> cards, List<T> storeContentArks) {
+    }
+
     public StoreResult storeAndGivingCard(Bag bag) throws Exception {
         QRCode qrCode = store(bag);
 

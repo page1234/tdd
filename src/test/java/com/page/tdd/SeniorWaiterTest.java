@@ -86,4 +86,17 @@ public class SeniorWaiterTest {
 
         then(records.size()).isEqualTo(1);
     }
+
+    @Test
+    void should_get_a_card_when_store_and_giving_card_given_a_bag_and_a_senior_waiter_and_a_store_content_ark_with_1_space_and_a_card() throws Exception {
+        Bag bag = new Bag();
+        Card card = new Card();
+        SeniorWaiter seniorWaiter = new SeniorWaiter(
+                Collections.singletonList(card),
+                Collections.singletonList(new StoreContentArk(1)));
+
+        StoreResult storeResult = seniorWaiter.storeAndGivingCard(bag);
+
+        then(storeResult.getCard()).isEqualTo(card);
+    }
 }
