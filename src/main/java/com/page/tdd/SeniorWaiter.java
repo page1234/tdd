@@ -1,9 +1,11 @@
 package com.page.tdd;
 
+import com.page.tdd.exception.StoreBagFailException;
 import com.page.tdd.exception.StoreContentArkFullException;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class SeniorWaiter {
@@ -14,7 +16,6 @@ public class SeniorWaiter {
     }
 
     public SeniorWaiter() {
-
     }
 
     public StoreResult storeAndGivingCard(Bag bag) throws Exception {
@@ -40,11 +41,23 @@ public class SeniorWaiter {
     }
 
     private void verify() {
+        verifyHadStoreContentArksCouldUse();
+
+        verifyNotAllStoreContentArksAreFull();
+    }
+
+    private void verifyNotAllStoreContentArksAreFull() {
         List<StoreContentArk> notFullStoreContentArks = storeContentArks.stream()
                 .filter(storeContentArk -> !storeContentArk.isFull())
                 .collect(Collectors.toList());
         if (notFullStoreContentArks.isEmpty()) {
             throw new StoreContentArkFullException();
+        }
+    }
+
+    private void verifyHadStoreContentArksCouldUse() {
+        if (Objects.isNull(storeContentArks)) {
+            throw new StoreBagFailException();
         }
     }
 
