@@ -62,4 +62,8 @@ public class StoreContentArk {
     public boolean isFull() {
         return arks.size() == space;
     }
+
+    public int getFreeSpaceAmount() {
+        return 0;
+    }
 }

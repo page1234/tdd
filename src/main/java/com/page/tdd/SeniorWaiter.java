@@ -3,22 +3,34 @@ package com.page.tdd;
 import java.util.List;
 
 public class SeniorWaiter {
-    public SeniorWaiter(List<StoreContentArk> storeContentArks) {
+    private List<StoreContentArk> storeContentArks;
 
+    public SeniorWaiter(List<StoreContentArk> storeContentArks) {
+        this.storeContentArks = storeContentArks;
     }
 
-    public StoreResult storeAndGivingCard(Bag bag) {
-        store();
+    public StoreResult storeAndGivingCard(Bag bag) throws Exception {
+        QRCode qrCode = store(bag);
 
         clockIn();
 
         pickUpOneCard();
 
-        return null;
+        return StoreResult.builder()
+                .qrCode(qrCode)
+                .build();
     }
 
-    protected void store() {
-
+    protected QRCode store(Bag bag) throws Exception {
+        StoreContentArk storeContentArk = storeContentArks.stream()
+                .max((firstStoreContentArk, secondStoreContentArk) -> {
+                    if (firstStoreContentArk.getFreeSpaceAmount() > secondStoreContentArk.getFreeSpaceAmount()) {
+                        return 1;
+                    }
+                    return -1;
+                })
+                .orElseThrow(Exception::new);
+        return storeContentArk.store(bag);
     }
 
     protected void clockIn() {
