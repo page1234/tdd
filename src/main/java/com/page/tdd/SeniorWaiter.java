@@ -13,6 +13,10 @@ public class SeniorWaiter {
         this.storeContentArks = storeContentArks;
     }
 
+    public SeniorWaiter() {
+
+    }
+
     public StoreResult storeAndGivingCard(Bag bag) throws Exception {
         QRCode qrCode = store(bag);
 

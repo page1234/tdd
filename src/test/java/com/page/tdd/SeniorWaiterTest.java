@@ -1,5 +1,6 @@
 package com.page.tdd;
 
+import com.page.tdd.exception.StoreBagFailException;
 import com.page.tdd.exception.StoreContentArkFullException;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -63,5 +64,14 @@ public class SeniorWaiterTest {
 
         thenThrownBy(() -> seniorWaiter.storeAndGivingCard(bag))
                 .isInstanceOf(StoreContentArkFullException.class);
+    }
+
+    @Test
+    void should_store_fail_when_store_and_giving_card_given_a_bag_and_a_senior_waiter_and_without_store_content_ark() {
+        Bag bag = new Bag();
+        SeniorWaiter seniorWaiter = new SeniorWaiter();
+
+        thenThrownBy(() -> seniorWaiter.storeAndGivingCard(bag))
+                .isInstanceOf(StoreBagFailException.class);
     }
 }
