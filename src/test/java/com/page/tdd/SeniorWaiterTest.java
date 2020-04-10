@@ -99,4 +99,15 @@ public class SeniorWaiterTest {
 
         then(storeResult.getCard()).isEqualTo(card);
     }
+
+    @Test
+    void should_get_bag_when_pick_up_given_a_senior_waiter_and_qr_code_and_a_store_content_ark() {
+        Bag bag = new Bag();
+        SeniorWaiter seniorWaiter = new SeniorWaiter(Collections.singletonList(new StoreContentArk(1)));
+        StoreResult storeResult = seniorWaiter.storeAndGivingCard(bag);
+
+        Bag actualBag = seniorWaiter.pickUp(storeResult.getQrCode());
+
+        then(actualBag).isEqualTo(bag);
+    }
 }
