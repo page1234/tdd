@@ -64,6 +64,6 @@ public class StoreContentArk {
     }
 
     public int getFreeSpaceAmount() {
-        return 0;
+        return space - arks.size();
     }
 }
