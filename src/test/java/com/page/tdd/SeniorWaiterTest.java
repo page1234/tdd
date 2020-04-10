@@ -1,5 +1,6 @@
 package com.page.tdd;
 
+import com.page.tdd.exception.StoreContentArkFullException;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
@@ -7,6 +8,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.assertj.core.api.BDDAssertions.then;
+import static org.assertj.core.api.BDDAssertions.thenThrownBy;
 import static org.mockito.Mockito.verify;
 
 public class SeniorWaiterTest {
@@ -51,5 +53,15 @@ public class SeniorWaiterTest {
         StoreResult storeResult = seniorWaiter.storeAndGivingCard(bag);
 
         then(firstStoreContentArk.pickUp(storeResult.getQrCode())).isEqualTo(bag);
+    }
+
+    @Test
+    void should_store_fail_when_store_and_giving_card_given_a_bag_and_a_senior_waite_and_2_full_store_content_arks() {
+        Bag bag = new Bag();
+        List<StoreContentArk> storeContentArks = Arrays.asList(new StoreContentArk(0), new StoreContentArk(0));
+        SeniorWaiter seniorWaiter = new SeniorWaiter(storeContentArks);
+
+        thenThrownBy(() -> seniorWaiter.storeAndGivingCard(bag))
+                .isInstanceOf(StoreContentArkFullException.class);
     }
 }
